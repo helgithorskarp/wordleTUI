@@ -66,5 +66,21 @@
                 "win": true
             }
         ]
+    },
+    "boas": {
+        "records": [
+            {
+                "wordLength": 4,
+                "guesses": 10,
+                "guessesNeeded": 5,
+                "win": true
+            },
+            {
+                "wordLength": 3,
+                "guesses": 1,
+                "guessesNeeded": 1,
+                "win": false
+            }
+        ]
     }
 }

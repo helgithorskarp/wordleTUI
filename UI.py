@@ -13,7 +13,9 @@ class UI:
         
         hasUserQuit = False
         while not hasUserQuit:
-            self.__printMainScreen(userName)
+            hasUserQuit = self.__printMainScreen(userName)
+            if hasUserQuit:
+                continue
             letterCount, guessCount = self.__getGameInfo()
             try:
                 secret = self.wordleEngine.getWord(letterCount)
@@ -25,8 +27,8 @@ class UI:
                 return
         
         self.__printScreen(
-            f'Woohoo! Thanks for playing, {userName}! You totally rocked it! 🤩🎮\n'
-            'Catch you next time... 👋😄',
+            f'\nWoohoo! Thanks for playing, {userName}! You totally rocked it! 🤩🎮\n'
+            'Catch you next time... 👋😄\n',
             ''
         )
             
@@ -131,7 +133,7 @@ class UI:
         username = ''
         while not username or username in userDict:
             self.__printScreen(
-                'Ready to test your word skills? Enter your username to begin your adventure!',
+                'Ready to test your wordle skills?\nEnter your username to create a account and begin your adventure!',
                 'Your username: ',
                 errMessage
             )
@@ -146,14 +148,19 @@ class UI:
         
         while userChoice.lower() in ['h', 'w']:
             self.__printScreen(
-                "   🎉 Welcome to Wordle " + name + "!\n\n"
-                "   🏆 Your High Score: " + str(highScore) + " | 🌟 World Record: " + str(self.users.recordScore) + "\n\n"
-                "      Use logic to guess the word!\n"
-                "      Feedback: C=correct, c=misplaced, -=wrong\n\n"
-                "      Options:\n"
-                "      [Enter] Start | [H] Game History | [W] Add Word 🚀\n",
-                "Your choice: "
-            )
+                f"""
+    🎉 Welcome to Wordle, {name}!
+    🏆 Your High Score: {highScore}  |  🌟 World Record: {self.users.recordScore}
+
+    🔍 Use logic to guess the word!
+    ✅ Feedback:  C = correct | c = misplaced | - = wrong
+
+    📌 Options:
+        [Enter]  ▶️  Start Game
+        [H]      📜  Game History
+        [W]      ➕  Add Word to Word Bank
+        [Q]      🚪  Quit""","Your choice: ")
+
 
 
             userChoice = input().strip()
@@ -161,6 +168,8 @@ class UI:
                 self.__showGameHistory(name)
             elif userChoice.lower() == 'w':
                 self.__addWordToWordBank()  
+            
+        return True if userChoice.lower() == 'q' else False
 
                 
     def __showGameHistory(self, name: str) -> None:
@@ -193,13 +202,11 @@ class UI:
     def __printScreen(self, body: str, Input: str, errMessage: str = '') -> None:
         self.__clearScreen()
         menu = f'''
-------------------------------------------------------------
-                        WORDLE PA6
-------------------------------------------------------------
-
+-----------------------------------------------------------------
+                           WORDLE PA6
+-----------------------------------------------------------------
 {body}
-
------------------------------------------------------------
+-----------------------------------------------------------------
 {errMessage + Input}'''
         print(menu, end='')
     

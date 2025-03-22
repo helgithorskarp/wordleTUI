@@ -130,6 +130,8 @@ fame
 game
 hawk
 lion
+mjes
+manu
 campaign
 colorful
 mountain
