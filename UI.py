@@ -39,7 +39,7 @@ class UI:
         guesses: List[Tuple[str, str]] = []
         body = f'Welcome To wordle {name}\nPlease guess a {lettersCount} letter word!'
         while not isWinner and guessScore != guessesAllowed:
-            self.__printScreen(body, f'{lettersCount}-letter word: ', errMessage)
+            self.__printScreen('\n\n' + body + '\n\n', f'{lettersCount}-letter word: ', errMessage)
             userWord = input()
             
             if not self.wordleEngine.validateGuess(userWord, lettersCount):
@@ -68,40 +68,40 @@ class UI:
         body = self.__generatebody(guesses)
         
         if didUserWin:
-            body += f'\n\nCongratulations you won 🎉!\nYour score was: {len(secret) ** 2 / len(guesses)}'
+            body += f'\n\n🥳 Woohoo! You nailed it! 🎉\nYour score: {len(secret) ** 2 / len(guesses):.2f} 🚀'
         else:
-            body += f'\n\nBetter luck next time!\nThe correct word was: {secret}'
+            body += f'\n\n😅 So close! Better luck next round!\nThe secret word was: {secret.upper()} 📚'
         
-        self.__printScreen(body, 'Enter q to quit, or press enter to restart the game!: ')
+        self.__printScreen(body, '✨ Press enter to play again, or type "q" to quit! 🚪: ')
         userInput = input()
-        if userInput.lower() == 'q':
-            return True
-        return False
+        return userInput.lower() == 'q'
+
 
     def __getGameInfo(self) -> Tuple[int, int]:
         validWordLength = False
         errMessage = ''
         while not validWordLength:
-            self.__printScreen('Set word length (3–8):', '', errMessage)
-            userWordLength = input('Your length: ')
+            self.__printScreen('\n🎲 Set word length (3–8): 🎯\n', '👉 Your length: ', errMessage)
+            userWordLength = input()
             if self.wordleEngine.validateWordLength(userWordLength):
                 validWordLength = True
                 errMessage = ''
             else:
-                errMessage = 'Please enter a number between 3 and 8\n'
+                errMessage = '⚠️ Please enter a number between 3 and 8\n'
         
         validGuessCount = False
         errMessage = ''
         while not validGuessCount:
-            self.__printScreen('Set guess count (1–10):', '', errMessage)
-            userGuessCount = input('Your guess count: ')
+            self.__printScreen('\n🎰 Set guess count (1–10): 🎲\n', '👉 Your guess count: ', errMessage)
+            userGuessCount = input()
             if self.wordleEngine.validateGuessCount(userGuessCount):
                 validGuessCount = True
                 errMessage = ''
             else:
-                errMessage = 'Please enter a number between 1 and 10\n'
+                errMessage = '⚠️ Please enter a number between 1 and 10\n'
         
         return (int(userWordLength), int(userGuessCount))
+
     
     def __logInMenu(self) -> str:
         userDict = self.users.usersDict
@@ -110,10 +110,10 @@ class UI:
         option = ''
         while option not in ['1', '2']:
             self.__printScreen(
-                'Welcome to the Ultimate PA6 Wordle Challenge!\n\n'
-                '1. Add a new user\n'
-                '2. Log in with an existing user',
-                'Choose an option: '
+                '\n🚀 Welcome to the Ultimate PA6 Wordle Challenge! 🌟\n\n'
+                '1. Add a new user ✨\n'
+                '2. Log in with an existing user 🔑\n',
+                '👉 Choose an option: '
             )
             option = input()
 
@@ -122,8 +122,8 @@ class UI:
             username = ''
             while username not in userDict:
                 self.__printScreen(
-                    'Choose a username from the following options:\n' + '\n'.join(userDict.keys()),
-                    'Your choice: '
+                    '\n👤 Choose a username from the following options:\n   ' + '\n   '.join(userDict.keys()) + '\n',
+                    '🎯 Your choice: '
                 )
                 username = input()
             return username
@@ -133,14 +133,16 @@ class UI:
         username = ''
         while not username or username in userDict:
             self.__printScreen(
-                'Ready to test your wordle skills?\nEnter your username to create a account and begin your adventure!',
+                '\n🔥 Ready to test your Wordle skills? 🔥\n'
+                'Enter your username to create an account and begin your epic adventure! 🏆\n',
                 'Your username: ',
                 errMessage
             )
             username = input()
-            errMessage = 'This username has already been taken!\n' if username in userDict else ''
+            errMessage = '⚠️ This username has already been taken! Please try again.\n' if username in userDict else ''
         self.users.addNewUser(username)
         return username
+
 
     def __printMainScreen(self, name):
         highScore = self.users.usersDict[name].maxScore
@@ -189,10 +191,10 @@ class UI:
             self.__printScreen("Enter a new word for the collection!", "New word: ", errMessage)
             newWord = input()
             newWordFound = self.wordleEngine.validateNewWord(newWord)
-            errMessage = 'Word must only contain letters and be between 3 and 8 characters long.\n'
+            errMessage = '⚠️  Word must only contain letters and be between 3 and 8 characters long.\n'
         
         self.wordleEngine.addNewWord(newWord)
-        self.__printScreen(f"New word '{newWord}' has been created! 🚀", "Press enter to continue: ")
+        self.__printScreen(f"\nNew word '{newWord}' has been added to the Word Bank! 🚀\n", "Press enter to continue: ")
 
         input()
 

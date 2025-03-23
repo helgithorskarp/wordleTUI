@@ -18,6 +18,30 @@
                 "guesses": 1,
                 "guessesNeeded": 1,
                 "win": false
+            },
+            {
+                "wordLength": 5,
+                "guesses": 5,
+                "guessesNeeded": 5,
+                "win": true
+            },
+            {
+                "wordLength": 3,
+                "guesses": 10,
+                "guessesNeeded": 6,
+                "win": true
+            },
+            {
+                "wordLength": 5,
+                "guesses": 5,
+                "guessesNeeded": 3,
+                "win": true
+            },
+            {
+                "wordLength": 3,
+                "guesses": 10,
+                "guessesNeeded": 2,
+                "win": true
             }
         ]
     },
@@ -64,6 +88,24 @@
                 "guesses": 1,
                 "guessesNeeded": 1,
                 "win": true
+            },
+            {
+                "wordLength": 3,
+                "guesses": 1,
+                "guessesNeeded": 1,
+                "win": false
+            },
+            {
+                "wordLength": 3,
+                "guesses": 1,
+                "guessesNeeded": 1,
+                "win": false
+            },
+            {
+                "wordLength": 3,
+                "guesses": 5,
+                "guessesNeeded": 5,
+                "win": false
             }
         ]
     },
@@ -75,6 +117,16 @@
                 "guessesNeeded": 5,
                 "win": true
             },
+            {
+                "wordLength": 3,
+                "guesses": 1,
+                "guessesNeeded": 1,
+                "win": false
+            }
+        ]
+    },
+    "kalob": {
+        "records": [
             {
                 "wordLength": 3,
                 "guesses": 1,

@@ -36,27 +36,44 @@ class WordleEngine:
         secret, guess = secret.lower(), guess.lower()
         hint = ['-'] * len(secret)
         letterCount = {}
+
         for ch in secret:
             if ch in letterCount:
                 letterCount[ch] += 1
             else:
                 letterCount[ch] = 1
-                
+
         for i in range(len(secret)):
             if guess[i] == secret[i]:
                 hint[i] = 'C'
                 letterCount[guess[i]] -= 1
-                
+
         for i in range(len(secret)):
             if hint[i] != 'C' and guess[i] in letterCount and letterCount[guess[i]] > 0:
                 hint[i] = 'c'
                 letterCount[guess[i]] -= 1
-        return "".join(hint)
+
+        # Color codes
+        GREEN = "\033[92m"
+        YELLOW = "\033[93m"
+        RESET = "\033[0m"
+
+        coloredHint = ""
+        for ch in hint:
+            if ch == 'C':
+                coloredHint += f"{GREEN}C{RESET}"
+            elif ch == 'c':
+                coloredHint += f"{YELLOW}c{RESET}"
+            else:
+                coloredHint += ch
+
+        return coloredHint
     
     @staticmethod
     def isWinner(wordHint: str, letterCount: int) -> bool:
-        return wordHint == 'C' * letterCount
-    
+        GREEN_C = "\033[92mC\033[0m"
+        return wordHint == GREEN_C * letterCount
+
     def validateWordLength(self, value: str) -> bool:
         if not value.isdigit():
             return False

@@ -97,6 +97,7 @@ viewer
 voyage
 wicked
 wizard
+apples
 apple
 eagle
 gecko
@@ -112,6 +113,8 @@ shrew
 tiger
 whale
 zebra
+messi
+money
 messi
 archive
 crystal
