@@ -135,6 +135,7 @@ hawk
 lion
 mjes
 manu
+cool
 campaign
 colorful
 mountain
@@ -148,3 +149,5 @@ uno
 qqq
 lal
 nan
+bbb
+ouj

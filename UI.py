@@ -188,7 +188,12 @@ class UI:
         newWordFound = False
         errMessage = ''
         while not newWordFound:
-            self.__printScreen("Enter a new word for the collection!", "New word: ", errMessage)
+            self.__printScreen(
+    "\n📝 Let's add a new word to your Word Bank!\n🔤 Must be 3–8 letters long and only contain letters.\n",
+    "👉 Your word: ",
+    errMessage
+)
+
             newWord = input()
             newWordFound = self.wordleEngine.validateNewWord(newWord)
             errMessage = '⚠️  Word must only contain letters and be between 3 and 8 characters long.\n'

@@ -106,6 +106,12 @@
                 "guesses": 5,
                 "guessesNeeded": 5,
                 "win": false
+            },
+            {
+                "wordLength": 3,
+                "guesses": 10,
+                "guessesNeeded": 8,
+                "win": true
             }
         ]
     },
@@ -122,6 +128,18 @@
                 "guesses": 1,
                 "guessesNeeded": 1,
                 "win": false
+            },
+            {
+                "wordLength": 8,
+                "guesses": 10,
+                "guessesNeeded": 2,
+                "win": true
+            },
+            {
+                "wordLength": 3,
+                "guesses": 5,
+                "guessesNeeded": 3,
+                "win": true
             }
         ]
     },
@@ -132,7 +150,16 @@
                 "guesses": 1,
                 "guessesNeeded": 1,
                 "win": false
+            },
+            {
+                "wordLength": 5,
+                "guesses": 5,
+                "guessesNeeded": 5,
+                "win": false
             }
         ]
+    },
+    "nuno": {
+        "records": []
     }
 }

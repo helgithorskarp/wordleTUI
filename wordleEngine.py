@@ -111,6 +111,3 @@ class WordleEngine:
 
 
 
-n = WordleEngine()
-
-n.addNewWord('messi')
