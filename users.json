@@ -52,6 +52,13 @@
         ]
     },
     "helgi": {
-        "records": []
+        "records": [
+            {
+                "wordLength": 3,
+                "guesses": 1,
+                "guessesNeeded": 1,
+                "win": false
+            }
+        ]
     }
 }
