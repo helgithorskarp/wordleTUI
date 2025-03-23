@@ -70,7 +70,7 @@ class UI:
         return username
 
     def __displayMainScreen(self, name: str) -> bool:
-        highScore = self.users.usersDict[name].maxScore
+        highScore = round(self.users.usersDict[name].maxScore, 3)
         userChoice = 'h'
         #Color codes
         GREEN = "\033[92m"
@@ -81,7 +81,7 @@ class UI:
             self.__printScreen(
                 f"""
     🎉 Welcome to Wordle, {name}!
-    🏆 Your High Score: {highScore}  |  🌟 World Record: {self.users.recordScore}
+    🏆 Your High Score: {highScore}  |  🌟 World Record: {round(self.users.recordScore, 3)}
 
     🔍 Use logic to guess the word!
     ✅ Feedback:  {GREEN}C{RESET} = correct | {YELLOW}c{RESET} = misplaced | - = wrong

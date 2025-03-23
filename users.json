@@ -58,6 +58,22 @@
                 "guesses": 1,
                 "guessesNeeded": 1,
                 "win": false
+            },
+            {
+                "wordLength": 8,
+                "guesses": 5,
+                "guessesNeeded": 3,
+                "win": true
+            }
+        ]
+    },
+    "newuser": {
+        "records": [
+            {
+                "wordLength": 3,
+                "guesses": 5,
+                "guessesNeeded": 2,
+                "win": true
             }
         ]
     }
