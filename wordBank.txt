@@ -3,17 +3,21 @@ dog
 sun
 sky
 cup
-die
+new
 blue
 tree
 rock
 wind
 moon
+ipad
+book
 apple
 grape
 house
 river
 earth
+hello
+sonic
 planet
 orange
 forest
@@ -29,3 +33,4 @@ elephant
 building
 language
 umbrella
+reserves
