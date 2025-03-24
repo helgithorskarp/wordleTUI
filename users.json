@@ -49,25 +49,6 @@
             }
         ]
     },
-    "newuser": {
-        "records": [
-            {
-                "wordLength": 3,
-                "guesses": 5,
-                "guessesNeeded": 2,
-                "win": true
-            },
-            {
-                "wordLength": 3,
-                "guesses": 3,
-                "guessesNeeded": 2,
-                "win": true
-            }
-        ]
-    },
-    "mm": {
-        "records": []
-    },
     "brylla": {
         "records": [
             {
