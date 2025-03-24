@@ -87,7 +87,7 @@ class WordleEngine:
         return 3 <= length <= 8
 
     def validateGuessCount(self, value: str) -> bool:
-        ''''''
+        '''validates the number passed for a guess count, number must be a digit and be 1-10'''
         if not value.isdigit():
             return False
         count = int(value)
@@ -95,18 +95,19 @@ class WordleEngine:
     
     
     def addNewWord(self, newWord):
-        if not newWord:
+        '''new word is added to the word bank, if word is empty then nothing is returned'''
+        if not newWord: 
             return
         
         newWordLength = len(newWord)
         
         try:
-            self.wordDict[newWordLength].append(newWord)
+            self.wordDict[newWordLength].append(newWord) # add word to dict
         except KeyError:
             self.wordDict[newWordLength] = [newWord]
             
         
-        with open('wordBank.txt', 'w') as file:
+        with open('wordBank.txt', 'w') as file: # rewrite all words into the file includin the new word, 
             for key in self.wordDict:
                 for word in self.wordDict[key]:
                     file.write(word + '\n')
