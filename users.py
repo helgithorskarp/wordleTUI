@@ -9,7 +9,7 @@ class invalidUserName(Exception):
 
 class Users:
     def __init__(self) -> None:
-        self.usersDict: Dict[str, "account"] = self.__readAllUsers()
+        self.usersDict: Dict[str, "account"] = self.__readAllUsers() # A dictionary of account instances, 
         
         if self.usersDict:
             self.recordScore: float = max(account.maxScore for account in self.usersDict.values())
@@ -21,7 +21,7 @@ class Users:
         userDict = {}
         try:
             with open('users.json', 'r') as file: #
-                data: Dict[str, Any] = json.load(file)
+                data = json.load(file)
                 for userName, userData in data.items(): # for all key(username) value(records) pairs in the json file, set the key to username and value to a instance of accounts
                     records = userData["records"]
                     userDict[userName] = account(userName, records)
@@ -36,7 +36,7 @@ class Users:
             raise userNameExists(f"User '{userName}' already exists.")
 
         if not userName:
-            raise invalidUserName("Username is invalid.")
+            raise invalidUserName("Username is invalid.") # only invalid when username is empty
 
         new_account = account(userName, [])
         self.usersDict[userName] = new_account # add to the userDict
@@ -86,7 +86,7 @@ class Users:
 class account:
     def __init__(self, userName: str, records: List[Dict[str, Any]]) -> None:
         self.userName: str = userName
-        self.scores: Dict[str, float] = self.__getScores(records)
+        self.scores = self.__getScores(records)
     
     def __getScores(self, records: List[Dict[str, Any]]) -> Dict[str, float]:
         '''all scores are returned for a users records that are passed in, a dictionary is returned with the keys being the games, and values score'''
@@ -96,13 +96,13 @@ class account:
 
         recordsDict = {}
         maxScore = 0
-        counter = 0 # counter too keep track of games
+        gameNum = 0 # counter too keep track of games
 
         for record in records:
             try:
                 wordLength = int(record["wordLength"])
                 guessesNeeded = int(record["guessesNeeded"])
-            except (ValueError, AttributeError):
+            except Exception as e:
                 continue
 
             if not record['win']: # if the user didnt win the round the score is auto 0
@@ -113,8 +113,8 @@ class account:
             if score > maxScore:
                 maxScore = score
 
-            recordsDict[f'game {counter}'] = score
-            counter += 1
+            recordsDict[f'game {gameNum}'] = score
+            gameNum += 1
 
         self.maxScore = maxScore
         return recordsDict

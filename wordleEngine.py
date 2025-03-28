@@ -17,17 +17,16 @@ class WordleEngine:
                 
     def __readWordBank(self) -> dict:
         '''Reads from word bank into a dictionary where keys are word lengths and values are a list of words'''
-        words = {}
+        wordDict = {}
         with open('wordBank.txt', 'r') as file:
             for word in file:
                 cleanedWord = word.strip().lower()
                 wordLength = len(cleanedWord)
-                if wordLength in words: # word length key exists, append to that list
-                    if cleanedWord not in words[wordLength]:
-                        words[wordLength].append(cleanedWord)
+                if wordLength in wordDict: # word length key exists, append to that list
+                    wordDict[wordLength].append(cleanedWord)
                 else:
-                    words[wordLength] = [cleanedWord] # word key does not exist, create new word lenght key
-        return words
+                    wordDict[wordLength] = [cleanedWord] # word key does not exist, create new word lenght key
+        return wordDict
 
     @staticmethod
     def validateGuess(word: str, lettersCount: int) -> bool:
@@ -47,22 +46,22 @@ class WordleEngine:
             else:
                 letterCount[ch] = 1
 
-        for i in range(len(secret)): # loop trough word and add a C if letter is in correct position and also subtract from the dictionary
+        for i in range(len(secret)): # loop trough word and add a upper case C if letter is in correct position and also subtract from the dictionary
             if guess[i] == secret[i]:
                 hint[i] = 'C'
                 letterCount[guess[i]] -= 1
-
+                
         for i in range(len(secret)): # loop trough word again, add a lowercase c iff word is in secret and the dictionary number for letter is larger than 0
             if hint[i] != 'C' and guess[i] in letterCount and letterCount[guess[i]] > 0:
                 hint[i] = 'c'
                 letterCount[guess[i]] -= 1
-
-        # Color codes 
+                
+        # ---- Here below i turn the hint genereated into a hint that has colours----
         GREEN = "\033[92m"
         YELLOW = "\033[93m"
         RESET = "\033[0m"
 
-        coloredHint = "" # loop trough the hint to create a colored hint
+        coloredHint = "" 
         for ch in hint:
             if ch == 'C':
                 coloredHint += f"{GREEN}C{RESET}"
@@ -102,7 +101,7 @@ class WordleEngine:
         newWordLength = len(newWord)
         
         try:
-            self.wordDict[newWordLength].append(newWord) # add word to dict
+            self.wordDict[newWordLength].append(newWord) # add word to Worddict
         except KeyError:
             self.wordDict[newWordLength] = [newWord]
             

@@ -1,14 +1,4 @@
 {
-    "alice": {
-        "records": [
-            {
-                "wordLength": 3,
-                "guesses": 1,
-                "guessesNeeded": 1,
-                "win": false
-            }
-        ]
-    },
     "helgi": {
         "records": [
             {
@@ -16,65 +6,21 @@
                 "guesses": 1,
                 "guessesNeeded": 1,
                 "win": false
-            },
-            {
-                "wordLength": 8,
-                "guesses": 5,
-                "guessesNeeded": 3,
-                "win": true
-            },
-            {
-                "wordLength": 4,
-                "guesses": 4,
-                "guessesNeeded": 2,
-                "win": true
-            },
-            {
-                "wordLength": 3,
-                "guesses": 3,
-                "guessesNeeded": 2,
-                "win": true
-            },
-            {
-                "wordLength": 5,
-                "guesses": 5,
-                "guessesNeeded": 3,
-                "win": true
-            },
-            {
-                "wordLength": 4,
-                "guesses": 1,
-                "guessesNeeded": 1,
-                "win": false
-            },
-            {
-                "wordLength": 3,
-                "guesses": 5,
-                "guessesNeeded": 5,
-                "win": false
-            },
-            {
-                "wordLength": 8,
-                "guesses": 10,
-                "guessesNeeded": 1,
-                "win": true
-            },
-            {
-                "wordLength": 3,
-                "guesses": 1,
-                "guessesNeeded": 1,
-                "win": false
             }
         ]
     },
-    "brylla": {
+    "meansphoenix": {
         "records": [
             {
-                "wordLength": 6,
-                "guesses": 9,
-                "guessesNeeded": 6,
+                "wordLength": 5,
+                "guesses": 6,
+                "guessesNeeded": 3,
                 "win": true
-            },
+            }
+        ]
+    },
+    "michael": {
+        "records": [
             {
                 "wordLength": 3,
                 "guesses": 5,
@@ -83,8 +29,8 @@
             },
             {
                 "wordLength": 3,
-                "guesses": 3,
-                "guessesNeeded": 3,
+                "guesses": 4,
+                "guessesNeeded": 1,
                 "win": true
             }
         ]

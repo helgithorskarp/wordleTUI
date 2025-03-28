@@ -8,6 +8,7 @@ class UI:
         self.wordleEngine = WordleEngine()
         self.users = Users()
 
+
     def gameMenu(self) -> None:
         userName = self.__loginMenu() 
 
@@ -40,7 +41,7 @@ class UI:
         option = ''
         while option not in ['1', '2']: # user has two options either to add a new user or login
             self.__printScreen(
-                '\n🚀 Welcome to the Ultimate PA6 Wordle Challenge! 🌟\n\n'
+                '\n🚀 Welcome to the PA6 Wordle Challenge! 🌟\n\n'
                 '1. Add a new user ✨\n'
                 '2. Log in with an existing user 🔑\n',
                 '👉 Choose an option: '
@@ -161,19 +162,19 @@ class UI:
 
             errMessage = ''
             guessScore += 1
-            body = self.__generateGameBody(guesses) # update body for next round
+            body = self.__generateGameBody(guesses, guessesAllowed) # update body for next round
 
         # after game is finished new record is stored and closing menu is displayed
         self.users.addNewRecordToUser(name, lettersCount, guessesAllowed, guessScore, isWinner)
-        return self.__closeGameMenu(isWinner, guesses, secret)
+        return self.__closeGameMenu(isWinner, guesses, secret, guessesAllowed)
 
-    def __generateGameBody(self, guesses: List[Tuple[str, str]]) -> str:
+    def __generateGameBody(self, guesses: List[Tuple[str, str]], guessesAllowed) -> str:
         '''Generate game body text with previous guesses and hints.'''
-        return '\n'.join([f'{guess[0]}       {guess[1].upper()}' for guess in guesses])
+        return f'GUESS COUNT {len(guesses)}/{guessesAllowed}\n' + '\n'.join([f'{guess[0]}       {guess[1].upper()}' for guess in guesses])
 
-    def __closeGameMenu(self, didUserWin: bool, guesses: List[Tuple[str, str]], secret: str) -> bool:
+    def __closeGameMenu(self, didUserWin: bool, guesses: List[Tuple[str, str]], secret: str, guessesAllowed) -> bool:
         '''Shows closing menu after a game has been finished, true is returned if user quits, true if not'''
-        body = self.__generateGameBody(guesses)
+        body = self.__generateGameBody(guesses, guessesAllowed)
 
         if didUserWin:
             body += f'\n\n🥳 Woohoo! You nailed it! 🎉\nYour score: {len(secret) ** 2 / len(guesses):.2f} 🚀'
@@ -190,7 +191,7 @@ class UI:
         
         # body of all games
         gameHistoryList = [
-            f"{game}: {points} points, {'win' if points > 0 else 'loss'}" 
+            f"{game}: {round(points, 3)} points, {'win' if points > 0 else 'loss'}" 
             for game, points in self.users.usersDict[name].scores.items()
         ]
         gameHistoryStr = 'GAME HISTORY\n\n' + '\n'.join(gameHistoryList)
@@ -220,7 +221,7 @@ class UI:
 
     # --- Utility Methods PRINTS screen and clears terminal ---
     def __printScreen(self, body: str, inputPrompt: str, errMessage: str = '') -> None:
-        '''Prints screen based on the body and input prompt entered, nothing is returned'''
+        '''Prints screen based on the body and input prompt entered. Additionaly there is a optional error message. nothing is returned'''
         self.__clearScreen()
         RED = '\033[91m'
         CYAN = '\033[96m'

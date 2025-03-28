@@ -18,12 +18,12 @@ house
 river
 earth
 hello
-sonic
 planet
 orange
 forest
 animal
 sunset
+subset
 picture
 diamond
 freedom
@@ -34,4 +34,3 @@ elephant
 building
 language
 umbrella
-reserves
