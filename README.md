@@ -24,6 +24,7 @@ Installation and Setup
   2. Running the Game
     To start the game, simply run the main script:
     python main.py 
+    # or
     python3 main.py 
 
   3. ENJOY :D

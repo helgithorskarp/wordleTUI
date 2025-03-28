@@ -42,8 +42,8 @@ class UI:
         while option not in ['1', '2']: # user has two options either to add a new user or login
             self.__printScreen(
                 '\n🚀 Welcome to the PA6 Wordle Challenge! 🌟\n\n'
-                '1. Add a new user ✨\n'
-                '2. Log in with an existing user 🔑\n',
+                '   1. Add a new user ✨\n'
+                '   2. Log in with an existing user 🔑\n',
                 '👉 Choose an option: '
             )
             option = input()
