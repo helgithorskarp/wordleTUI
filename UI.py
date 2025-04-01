@@ -148,9 +148,13 @@ class UI:
             userWord = input() # ask for a word
             
             # if word is invalid then restart while loop
-            if not self.wordleEngine.validateGuess(userWord, lettersCount):
-                errMessage = f'Your guess must only contain letters and be of length {lettersCount}\n'
-                continue
+            try:
+                if not self.wordleEngine.validateGuess(userWord, lettersCount):
+                    errMessage = f'Your guess must only contain letters and be of length {lettersCount}\n'
+                    continue
+            except wordNotInDict:                    
+                errMessage = f'Your guess was not in the available words! Please try again\n'
+                continue             
 
             # get hint from engine based on guess, if the hint is a winning hint then while loop ends
             hint = self.wordleEngine.generateHint(secret, userWord)
@@ -214,7 +218,14 @@ class UI:
             newWordFound = self.wordleEngine.validateNewWord(newWord)
             errMessage = '⚠️  Word must only contain letters and be between 3 and 8 characters long.\n'
 
-        self.wordleEngine.addNewWord(newWord) # add new word to bank, display screen allowing the user to return 
+            if newWordFound:
+                try:
+                    self.wordleEngine.addNewWord(newWord) # add new word to bank, display screen allowing the user to return 
+                except wordAlreadyExists:
+                    newWordFound = False
+                    errMessage = '⚠️  This word already exists in the word bank!\n'
+                    
+            
         self.__printScreen(f"\nNew word '{newWord}' has been added to the Word Bank! 🚀\n", "Press enter to continue: ")
         input()
         
@@ -240,4 +251,7 @@ class UI:
 
     @staticmethod
     def __clearScreen() -> None:
-        os.system('cls' if os.name == 'nt' else 'clear')
+        try:
+            os.system('cls' if os.name == 'nt' else 'clear')
+        except Exception as e:
+            return e

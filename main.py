@@ -1,4 +1,5 @@
 from UI import UI
-ui = UI()
 
-ui.gameMenu()
+if __name__ == '__main__':
+    UI().gameMenu()
+    

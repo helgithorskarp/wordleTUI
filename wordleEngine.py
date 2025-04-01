@@ -1,6 +1,13 @@
 import random
+from hashMap import HashMap
 
 class NoWordExists(Exception):
+    pass
+
+class wordAlreadyExists(Exception):
+    pass
+
+class wordNotInDict(Exception):
     pass
 
 
@@ -11,26 +18,31 @@ class WordleEngine:
     def getWord(self, length: int) -> str:
         '''returns a word from word bank that matches the length entered, A NoWordExists error is raised if nothing is found '''
         try:
-            return random.choice(self.wordDict[length])
-        except (KeyError, IndexError):
+            return self.wordDict[length].getRandomValue()
+        except NoWordExists:
             raise NoWordExists()
                 
     def __readWordBank(self) -> dict:
-        '''Reads from word bank into a dictionary where keys are word lengths and values are a list of words'''
-        wordDict = {}
-        with open('wordBank.txt', 'r') as file:
-            for word in file:
-                cleanedWord = word.strip().lower()
-                wordLength = len(cleanedWord)
-                if wordLength in wordDict: # word length key exists, append to that list
-                    wordDict[wordLength].append(cleanedWord)
-                else:
-                    wordDict[wordLength] = [cleanedWord] # word key does not exist, create new word lenght key
-        return wordDict
+        wordLengthDict: dict[int, HashMap] = {}
 
-    @staticmethod
-    def validateGuess(word: str, lettersCount: int) -> bool:
+        with open('wordBankLarge.txt', 'r') as file:
+            for line in file:
+                word = line.strip().lower()
+                length = len(word)
+                
+                if length not in wordLengthDict:
+                    wordLengthDict[length] = HashMap()
+                
+                wordLengthDict[length].insert(word, word)
+        
+        return wordLengthDict
+
+
+    def validateGuess(self, word: str, lettersCount: int) -> bool:
         '''validates guess, true is returned if the guess is of correct length and is only letters, else false'''
+        if not self.wordDict[lettersCount].contains(word):
+            raise wordNotInDict()
+            
         return len(word) == lettersCount and word.isalpha()
     
     @staticmethod
@@ -56,10 +68,10 @@ class WordleEngine:
                 hint[i] = 'c'
                 letterCount[guess[i]] -= 1
                 
-        # ---- Here below i turn the hint genereated into a hint that has colours----
-        GREEN = "\033[92m"
+        # ---- Here below I turn the hint genereated into a hint that has colours----
+        GREEN = "\033[92m" 
         YELLOW = "\033[93m"
-        RESET = "\033[0m"
+        RESET = "\033[0m" 
 
         coloredHint = "" 
         for ch in hint:
@@ -98,23 +110,26 @@ class WordleEngine:
         if not newWord: 
             return
         
+        if self.wordDict[len(newWord)].contains(newWord):
+            raise wordAlreadyExists()
+        
         newWordLength = len(newWord)
         
         try:
-            self.wordDict[newWordLength].append(newWord) # add word to Worddict
+            self.wordDict[newWordLength].insert(newWord, newWord) # add word to Worddict
         except KeyError:
-            self.wordDict[newWordLength] = [newWord]
+            pass
             
         
-        with open('wordBank.txt', 'w') as file: # rewrite all words into the file includin the new word, 
-            for key in self.wordDict:
-                for word in self.wordDict[key]:
-                    file.write(word + '\n')
-    
+        # Append the new word to the file
+        with open('wordBankLarge.txt', 'a') as file:
+            file.write(newWord + '\n')
+
+        
     @staticmethod
     def validateNewWord(word):
         wordLength = len(word)
         return word.isalpha() and 3 <= wordLength <= 8
-
+    
 
 
